@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.model.Employee;
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
@@ -102,4 +104,190 @@ public class EmployeeDao {
 		return check;
 	}
 
+	public List<Employee> findEmployeeByEname(String ename) {	
+		List<Employee> list_name = new ArrayList();
+		
+		String sql = "select eid, ename, edesignation, ecompany, esalary from employee where ename = ?";
+		
+		try (Connection con = MyDatabase.myConnection();
+			 PreparedStatement pst = con.prepareStatement(sql);){
+				
+			pst.setString(1, ename);
+			ResultSet rs = pst.executeQuery();
+			list_name = MyDatabase.employeeRowMapper(rs);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list_name;
+	}
+
+	public List<Employee> findEmployeeByEnameAndEdesignation(String ename, String edesignation){
+		List<Employee> list_name = new ArrayList();
+		
+		String str = "select eid, ename, edesignation, ecompany, esalary from employee where ename=? and edesignation=?";
+		
+		try (Connection con = MyDatabase.myConnection();
+				PreparedStatement pst = con.prepareStatement(str);
+				){
+			pst.setString(1, ename);
+			pst.setString(2, edesignation);
+			ResultSet rs = pst.executeQuery();
+			list_name = MyDatabase.employeeRowMapper(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list_name;
+	}
+
+	public List<Employee> findEmployeeByEnameOrEdesignation(String ename, String edesignation){
+		List<Employee> list_name = new ArrayList();
+		
+		String sql = "select eid, ename, edesignation, ecompany, esalary from employee where ename = ? or edesignation = ?";
+		try (Connection con = MyDatabase.myConnection();
+			 PreparedStatement pst = con.prepareStatement(sql);){
+				
+				pst.setString(1, ename);
+				pst.setString(2, edesignation);
+				
+				ResultSet rs = pst.executeQuery();
+				list_name = MyDatabase.employeeRowMapper(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list_name;
+	}
+
+	public List<Employee> findEmployeeByEsalaryLessThan(double esalary) {
+		List<Employee> list_name = new ArrayList();
+		String sql = "select eid, ename, edesignation, ecompany, esalary from employee where esalary <= ?";
+		
+		try (Connection con = MyDatabase.myConnection();
+			 PreparedStatement pst = con.prepareStatement(sql);){
+				
+			pst.setDouble(1, esalary);
+			ResultSet rs = pst.executeQuery();
+			list_name = MyDatabase.employeeRowMapper(rs);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list_name;
+	}
+
+	public List<Employee> findEmployeeBySalaryBetween(double low, double high){
+		List<Employee> list_name = new ArrayList();
+		String sql = "select eid, ename, edesignation, ecompany, esalary from employee where esalary between ? and ?";
+		
+		try (Connection con = MyDatabase.myConnection();
+				PreparedStatement pst = con.prepareStatement(sql);){
+			
+			pst.setDouble(1, low);
+			pst.setDouble(2, high);
+			
+			ResultSet rs = pst.executeQuery();
+			list_name = MyDatabase.employeeRowMapper(rs);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list_name;
+	}
+
+	public List<Employee> findEmployeeBySalaryNotBetween(double low, double high){
+		List<Employee> list_name = new ArrayList();
+		String sql = "select eid, ename, edesignation, ecompany, esalary from employee where esalary not between ? and ?";
+		
+		try (Connection con = MyDatabase.myConnection();
+				PreparedStatement pst = con.prepareStatement(sql);){
+			
+			pst.setDouble(1, low);
+			pst.setDouble(2, high);
+			
+			ResultSet rs = pst.executeQuery();
+			list_name = MyDatabase.employeeRowMapper(rs);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list_name;
+	}
+
+	public List<Employee> findEmployeeByEnameThatLike(String ename){
+		List<Employee> list_name = new ArrayList();
+		String sql = "select eid, ename, edesignation, ecompany, esalary from employee where ename like ?";
+		
+		try (Connection con = MyDatabase.myConnection();
+				PreparedStatement pst = con.prepareStatement(sql);){
+			
+			pst.setString(1, "%"+ename);	//here we have add the % sign to the starting of %ename
+			ResultSet rs = pst.executeQuery();
+			list_name = MyDatabase.employeeRowMapper(rs);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list_name;
+	}
+
+	public Link<Employee> findEmployeeByEidIn(List<Integer> id){
+		List<Employee> list_name = new ArrayList();
+		
+		StringBuilder sql = new StringBuilder("select eid, ename, edesignation, ecompany, esalary from employee where ")
+		
+		return list_name;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+////	-----------------------------------------------------------------
+////	from sir
+//	public Map<String, List> findEnameAndEsalary(){
+//		Map<String, List> m = new HashMap();
+//		String sql = "select ename, esalary, edesignation from employee";
+//		
+//		try (Connection con = MyDatabase.myConnection();
+//				PreparedStatement pst = con.prepareStatement(sql);
+//				ResultSet rs = pst.executeQuery();){
+//			
+//			List<String> listofNames = new ArrayList();
+//			List<Double> listofSalary = new ArrayList();
+//			
+//			while(rs.next()) {
+//				listofNames.add(rs.getString("ename"));
+//				listofSalary.add(rs.getDouble("esalary"));
+//			}
+//			m.put("listofNames", listofNames);
+//			m.put("listofSalary", listofSalary);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return m;
+//	}
 }

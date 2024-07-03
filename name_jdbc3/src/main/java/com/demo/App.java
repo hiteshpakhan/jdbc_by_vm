@@ -1,5 +1,7 @@
 package com.demo;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.dao.EmployeeDao;
@@ -62,14 +64,110 @@ public class App
 //    	}
     	
     	
-//    	to update specific employee
-    	EmployeeDao ed = new EmployeeDao();
-    	Employee e1 = ed.findEmployeeByEid(122);
-    	e1.setEname("name_one");
-    	e1.setEdesignation("designation_one");
-    	e1.setEcompany("company_one");
-    	e1.setEsalary(12332);
-    	System.err.println(ed.updateEmployee(e1));
+////    	to update specific employee
+//    	EmployeeDao ed = new EmployeeDao();
+//    	Employee e1 = ed.findEmployeeByEid(122);
+//    	e1.setEname("name_one");
+//    	e1.setEdesignation("designation_one");
+//    	e1.setEcompany("company_one");
+//    	e1.setEsalary(12332);
+//    	System.err.println(ed.updateEmployee(e1));
+    	
+////    	for getting the employee on the basic of ename
+//    	EmployeeDao ed = new EmployeeDao();
+//    	List<Employee> list_name = ed.findEmployeeByEname("IMXEIGQGKCJSDSZ");
+//    	for(Employee e : list_name) {
+//    		System.err.println(e);
+//    	}
+    	
+    	
+    	
+////    	for getting the data on the basic of ename and edesignation
+//    	EmployeeDao ed = new EmployeeDao();
+//    	List<Employee> list_name = ed.findEmployeeByEnameAndEdesignation("IMXEIGQGKCJSDSZ", "BVJOBIGLORCSTLL");
+//    	for(Employee e : list_name) {
+//    		System.err.println(e);
+//    	}
+    	
+    	
+////    	for getting the data on the basic of ename or edesignation 
+//    	EmployeeDao ed = new EmployeeDao();
+//    	List<Employee> list_name = ed.findEmployeeByEnameOrEdesignation("kaustubh", "KRHFITEFREBRUNB");
+//    	
+//    	for(Employee e : list_name) {
+//    		System.err.println(e);
+//    	}
+    	
+    	
+    	
+////    	for getting the employee whose salary is lessthan or equal to the given salary
+//    	EmployeeDao ed = new EmployeeDao();
+//    	List<Employee> list_name = ed.findEmployeeByEsalaryLessThan(5788.02);
+//    	
+//    	for(Employee e : list_name) {
+//    		System.err.println(e);
+//    	}
+    	
+////    	for getting the emploee between 2 salaries
+//    	EmployeeDao ed = new EmployeeDao();
+//    	List<Employee> list_name = ed.findEmployeeBySalaryBetween(100, 1000);
+//    	for(Employee e:list_name) {
+//    		System.err.println(e);
+//    	}
+
+    	
+////    	for getting the emploee that are not between 2 salaries
+//    	EmployeeDao ed = new EmployeeDao();
+//    	List<Employee> list_name = ed.findEmployeeBySalaryNotBetween(2000, 3000000);
+//    	for(Employee e:list_name) {
+//    		System.err.println(e);
+//    	}
+    	
+    	
+////    	for getting employee that are like
+//    	EmployeeDao ed = new EmployeeDao();
+//    	List<Employee> list_name = ed.findEmployeeByEnameThatLike("pp");
+//    	
+//    	for(Employee e: list_name) {
+//    		System.err.println(e);
+//    	}
+    	
+    	
+
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+////    	-----------------------------------------------------
+////    	from sir
+//    	EmployeeDao ed = new EmployeeDao();
+//    	Map<String, List> m = ed.findEnameAndEsalary();
+//    	for(int i = 0; i < m.get("listofNames").size(); i++) {
+//    		System.err.println(m.get("listofNames").get(i)+"\t\t"+m.get("listofSalary").get(i));
+//    	}
+    	
     
+    	
     }
 }
