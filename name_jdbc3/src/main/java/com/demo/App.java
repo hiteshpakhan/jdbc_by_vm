@@ -1,5 +1,6 @@
 package com.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -133,39 +134,31 @@ public class App
 //    	}
     	
     	
-
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-////    	-----------------------------------------------------
-////    	from sir
+////for getting employees that are from given employee id using in keyword of sql
 //    	EmployeeDao ed = new EmployeeDao();
-//    	Map<String, List> m = ed.findEnameAndEsalary();
-//    	for(int i = 0; i < m.get("listofNames").size(); i++) {
-//    		System.err.println(m.get("listofNames").get(i)+"\t\t"+m.get("listofSalary").get(i));
+//    	
+//    	List<Integer> id = new ArrayList();
+//    	
+//    	id.add(10);
+//    	id.add(20);
+//    	id.add(30);
+//    	id.add(40);
+//    	id.add(50);
+//    	List<Employee> list = ed.findEmployeeByEidIn(id);
+//    	
+//    	for(Employee e : list) {
+//    		System.err.println(e);
+//    		
 //    	}
+    	
+    	
+    	
+//    	from sir how to featch 2 column
+    	EmployeeDao ed = new EmployeeDao();
+    	Map<String, List> m = ed.findEnameAndEsalary();
+    	for(int i = 0; i < m.get("listofNames").size(); i++) {
+    		System.err.println(m.get("listofNames").get(i)+"\t\t"+m.get("listofSalary").get(i));
+    	}
     	
     
     	

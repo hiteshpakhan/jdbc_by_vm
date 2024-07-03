@@ -214,7 +214,6 @@ public class EmployeeDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return list_name;
 	}
 
@@ -235,59 +234,61 @@ public class EmployeeDao {
 		return list_name;
 	}
 
-	public Link<Employee> findEmployeeByEidIn(List<Integer> id){
+	public List<Employee> findEmployeeByEidIn(List<Integer> id){
 		List<Employee> list_name = new ArrayList();
 		
-		StringBuilder sql = new StringBuilder("select eid, ename, edesignation, ecompany, esalary from employee where ")
+		StringBuilder sql = new StringBuilder("select eid, ename, edesignation, ecompany, esalary from employee where eid in (");
+		if(id.isEmpty()) {
+			sql.append(0);
+		} else {
+			for(int i = 0; i < id.size(); i++) {
+				sql.append(id.get(i));
+				if(i < id.size()-1){
+					sql.append(",");
+				}
+			}
+			sql.append(")");			
+		}
+		
+		try (Connection con = MyDatabase.myConnection();
+				PreparedStatement pst = con.prepareStatement(sql.toString());
+				ResultSet rs = pst.executeQuery();){
+			
+			list_name = MyDatabase.employeeRowMapper(rs);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return list_name;
 	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-////	-----------------------------------------------------------------
-////	from sir
-//	public Map<String, List> findEnameAndEsalary(){
-//		Map<String, List> m = new HashMap();
-//		String sql = "select ename, esalary, edesignation from employee";
-//		
-//		try (Connection con = MyDatabase.myConnection();
-//				PreparedStatement pst = con.prepareStatement(sql);
-//				ResultSet rs = pst.executeQuery();){
-//			
-//			List<String> listofNames = new ArrayList();
-//			List<Double> listofSalary = new ArrayList();
-//			
-//			while(rs.next()) {
-//				listofNames.add(rs.getString("ename"));
-//				listofSalary.add(rs.getDouble("esalary"));
-//			}
-//			m.put("listofNames", listofNames);
-//			m.put("listofSalary", listofSalary);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return m;
-//	}
+	//	from sir how to featch 2 column
+	public Map<String, List> findEnameAndEsalary(){
+		Map<String, List> m = new HashMap();
+		String sql = "select ename, esalary, edesignation from employee";
+		
+		try (Connection con = MyDatabase.myConnection();
+				PreparedStatement pst = con.prepareStatement(sql);
+				ResultSet rs = pst.executeQuery(); //we dont have question in our query so we can make the ResultSet object
+				){
+			//here you can not use the rowMapper because in employeeRowMapper you have featched all the columns but here we are only getting 2 columns so we can not use employeeRowMappper
+			List<String> listofNames = new ArrayList();
+			List<Double> listofSalary = new ArrayList();
+			
+			while(rs.next()) {
+				listofNames.add(rs.getString("ename"));
+				listofSalary.add(rs.getDouble("esalary"));
+			}
+			m.put("listofNames", listofNames);
+			m.put("listofSalary", listofSalary);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return m;
+	}
+
 }
